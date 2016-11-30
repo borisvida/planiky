@@ -1,18 +1,32 @@
-if (typeof require !== 'undefined')
+if (typeof require !== 'undefined') {
     XLSX = require('xlsx');
-const workbook = XLSX.readFile('input/Planik_2016-4Q.xls');
+    fs = require('fs');
+}
 
-const zapad = workbook.Sheets[workbook.SheetNames[0]];
-const stred = workbook.Sheets[workbook.SheetNames[1]];
+const inputFolder = './input/';
 
 let counts = {};
-count(zapad);
-count(stred);
+let countsArray = [];
 
-//for (name in counts) {
-//if (counts[name] > 1)
-//console.log(name + ": " + counts[name]);
-//}
+function getCounts() {
+    fs.readdir(inputFolder, (err, files) => {
+        files.forEach(file => {
+            const workbook = XLSX.readFile(inputFolder + file);
+
+            const zapad = workbook.Sheets[workbook.SheetNames[0]];
+            const stred = workbook.Sheets[workbook.SheetNames[1]];
+
+            count(zapad);
+            count(stred);
+        })
+        countsArray = Object.keys(counts).map((data) => [data, counts[data]])
+          .filter((i) => i[1] > 1 && i[0] != "undefined" && !i[0].match(/[0-9/]/)).sort((a, b) => (a[1] > b[1])
+            ? -1
+            : ((b[1] > a[1])
+                ? 1
+                : 0));
+    })
+}
 
 function count(sheet) {
     for (cell in sheet) {
@@ -23,9 +37,7 @@ function count(sheet) {
         };
     }
 }
-
-let countsArray = Object.keys(counts).map((data) => [data, counts[data]]);
-
-module.exports = countsArray
-  .filter((i) => i[1] > 1 && i[0] != "undefined" && !i[0].match(/[0-9/]/))
-  .sort((a, b) => (a[1] > b[1]) ? -1 : ((b[1] > a[1]) ? 1 : 0));
+getCounts();
+module.exports = new Promise((resolve, reject) => {
+    resolve(console.log(countsArray))
+});
