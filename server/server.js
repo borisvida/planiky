@@ -15,8 +15,8 @@ router.get('/', function(req, res) {
 });
 
 router.get('/counts/', function(req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    getCounts.then((data) => { res.json(JSON.stringify(data)) })
+    res.header("Access-Control-Allow-Origin", "*");    
+    getCounts.then((data) => res.json(JSON.stringify(data)))
 });
 
 app.use('/api', router);

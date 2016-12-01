@@ -8,7 +8,7 @@ const inputFolder = './input/';
 let counts = {};
 let countsArray = [];
 
-function getCounts() {
+function getCounts(resolve) {
     fs.readdir(inputFolder, (err, files) => {
         files.forEach(file => {
             const workbook = XLSX.readFile(inputFolder + file);
@@ -19,12 +19,12 @@ function getCounts() {
             count(zapad);
             count(stred);
         })
-        countsArray = Object.keys(counts).map((data) => [data, counts[data]])
+        resolve(Object.keys(counts).map((data) => [data, counts[data]])
           .filter((i) => i[1] > 1 && i[0] != "undefined" && !i[0].match(/[0-9/]/)).sort((a, b) => (a[1] > b[1])
             ? -1
             : ((b[1] > a[1])
                 ? 1
-                : 0));
+                : 0)));
     })
 }
 
@@ -37,7 +37,7 @@ function count(sheet) {
         };
     }
 }
-getCounts();
+
 module.exports = new Promise((resolve, reject) => {
-    resolve(console.log(countsArray))
-});
+  getCounts(resolve);
+})
