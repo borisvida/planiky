@@ -1,10 +1,10 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import apiHelper from '../utils/apiHelper'
-class App  extends React.Component {
-  render() {
-    return <div>{this.props.text}</div>
-  }
-}
+
+const App = styled.div`
+      color: blue
+      `;
 
 export default App

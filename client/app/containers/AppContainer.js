@@ -17,7 +17,7 @@ class AppContainer  extends React.Component {
     })
   }
   render() {
-    return <App text={this.state.text} />
+    return <App>{this.state.text}</App>
   }
 }
 
