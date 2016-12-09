@@ -6,9 +6,8 @@ import AppContainer from './containers/AppContainer'
 import CountsContainer from './containers/CountsContainer'
 
 ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route path="/" component={AppContainer}>
-      <Route path="counts" component={CountsContainer} />
-    </Route>
-  </Router>
-  , document.getElementById('app'))
+    <Router history={browserHistory}>
+      <Route path="/" component={AppContainer}>
+        <Route path="counts" component={CountsContainer}/>
+      </Route>
+    </Router>, document.getElementById('app'))

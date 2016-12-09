@@ -7,17 +7,22 @@ class CountsContainer extends React.Component {
   constructor() {
     super()
     this.state = {
-      text: "Loading..."
+      isLoading: true,
+      data: "Loading..."
     }
   }
   componentDidMount() {
     apiHelper.getCounts().then((response) => { this.setState({
-        text: response.data
+        isLoading: false,
+        data: response.data
       })
     })
   }
   render() {
-    return <Counts text={this.state.text} />
+    if (this.state.isLoading)
+      return <div>Loading...</div>
+    else
+      return <Counts data={JSON.parse(this.state.data)} />
   }
 }
 

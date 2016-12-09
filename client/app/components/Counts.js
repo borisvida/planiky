@@ -1,5 +1,8 @@
 import React from 'react'
 
-const Counts = (props) => <div>{props.text}</div>
+import Rows from '../components/Rows'
+
+const Counts = (props) =>
+  <table><Rows data={props.data} /></table>
 
 export default Counts
