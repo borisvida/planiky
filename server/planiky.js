@@ -5,8 +5,8 @@ if (typeof require !== 'undefined') {
 
 const inputFolder = './input/';
 
-let counts = {};
-let countsArray = [];
+var counts = {};
+var countsArray = [];
 
 function getCounts(resolve) {
     fs.readdir(inputFolder, (err, files) => {
@@ -30,6 +30,8 @@ function getCounts(resolve) {
 
 function count(sheet) {
     for (cell in sheet) {
+        if (cell[0] == 'A' || cell[0] == 'B' || ((cell[1] == 1 || cell[1] == 2 || cell[1] == 3 ) && cell[2] == undefined))
+          continue;
         if ((sheet[cell].v) in counts) {
             counts[sheet[cell].v]++;
         } else {
