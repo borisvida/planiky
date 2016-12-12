@@ -20,7 +20,7 @@ function getCounts(resolve) {
             count(stred);
         })
         resolve(Object.keys(counts).map((data) => [data, counts[data]])
-          .filter((i) => i[1] > 1 && i[0] != "undefined" && !i[0].match(/[0-9/]/)).sort((a, b) => (a[1] > b[1])
+          .filter((i) => i[0] != "undefined" && !i[0].match(/[0-9/]/)).sort((a, b) => (a[1] > b[1])
             ? -1
             : ((b[1] > a[1])
                 ? 1
